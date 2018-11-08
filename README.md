@@ -2,7 +2,7 @@
 
 This module uses a modified version of Joshua Miller's macOSLAPS script: [https://github.com/joshua-d-miller/macOSLAPS-Legacy](https://github.com/joshua-d-miller/macOSLAPS-Legacy)
 
-![macOSLAPS Management](./macOSLAPS Management.png)
+![macOSLAPS Management](https://raw.githubusercontent.com/munkireport/laps/master/macOSLAPS%20Management.png)
 
 The table provides the following information per client:
 
