@@ -17,7 +17,7 @@ class Laps extends Migration
     {
         $capsule = new Capsule();
         $capsule::schema()->table('laps', function (Blueprint $table) {
-			$table->dropColumn('audit');
+            $table->dropColumn('audit');
         });
     }
 }
