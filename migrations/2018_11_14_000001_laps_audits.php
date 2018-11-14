@@ -3,7 +3,8 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
-class Laps extends Migration
+
+class LapsAudits extends Migration
 {
     public function up()
     {
