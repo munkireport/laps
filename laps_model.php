@@ -24,6 +24,11 @@ class Laps_model extends \Model
         $this->rs['remote_management'] = 1; //Boolean
         $this->rs['audit'] = '';
         
+        $this->module_dir = dirname(__FILE__);
+        
+        // Add local config
+        configAppendFile(__DIR__ . '/config.php');
+
         // Check if encryption key exists
         if( ! conf('laps_encryption_key')){
             throw new \Exception("No LAPS encryption key found in config", 1);
