@@ -15,7 +15,7 @@ return [
 	|
 	*/
 
-	$conf['laps_encryption_key'] =  getenv_default('LAPS_ENCRYPTION_KEY', '');
-	$conf['laps_password_decrypt_enabled'] = getenv_default('LAPS_PASSWORD_DECRYPT_ENABLED', TRUE, 'bool');
-	//$conf['view_laps_password'] = getenv_default('VIEW_LAPS_PASSWORD', [''], 'array');
+	$conf['laps_encryption_key'] =  getenv_default('LAPS_ENCRYPTION_KEY', ''),
+	$conf['laps_password_decrypt_enabled'] = getenv_default('LAPS_PASSWORD_DECRYPT_ENABLED', TRUE, 'bool'),
+	//$conf['view_laps_password'] = getenv_default('VIEW_LAPS_PASSWORD', [''], 'array'),
 ];
