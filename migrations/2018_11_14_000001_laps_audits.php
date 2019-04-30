@@ -9,7 +9,7 @@ class LapsAudits extends Migration
     public function up()
     {
         $capsule = new Capsule();
-        $capsule::schema()->create('laps', function (Blueprint $table) {
+        $capsule::schema()->table('laps', function (Blueprint $table) {
             $table->longText('audit')->nullable();
         });
     }
