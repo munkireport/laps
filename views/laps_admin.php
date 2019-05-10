@@ -377,7 +377,7 @@ function getData(serialNumber, audit)
 
             // Check if should show password row and show button
             var password_decrypt_enabled = "<?php echo conf('laps_password_decrypt_enabled'); ?>";
-            if (password_decrypt_enabled != 1 || data.password_view !== 1){
+            if (!password_decrypt_enabled || data.password_view !== 1){
                 $('#password-row').addClass('hide'); 
                 $('#laps_show_button').addClass('disabled'); 
             }
