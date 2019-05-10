@@ -15,7 +15,7 @@ return [
 	|
 	*/
 
-	laps_encryption_key => env('LAPS_ENCRYPTION_KEY'),
-	laps_password_decrypt_enabled => env('LAPS_PASSWORD_DECRYPT_ENABLED'),
-	//view_laps_password => env('VIEW_LAPS_PASSWORD'),
+	'laps_encryption_key' => env('LAPS_ENCRYPTION_KEY'),
+	'laps_password_decrypt_enabled' => env('LAPS_PASSWORD_DECRYPT_ENABLED'),
+	'view_laps_password' => env('VIEW_LAPS_PASSWORD'),
 ];
