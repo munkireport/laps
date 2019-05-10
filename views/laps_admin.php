@@ -1,4 +1,7 @@
-<?php $this->view('partials/head'); ?>
+<?php $this->view('partials/head');
+  // Add local config
+  configAppendFile(__DIR__ . '/../config.php');
+?>
 <style>
 /* Toggle switches - Used by macOSLAPS Admin */
 /* The switch - the box around the slider */
