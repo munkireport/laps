@@ -14,16 +14,12 @@ class Laps_controller extends Module_controller
 	function __construct()
 	{
 		$this->module_path = dirname(__FILE__);
-	}
-
-    /**
-     * Default method
-     *
-     * @author avb
-     **/
-    function index()
+    }
+    
+    public function admin()
     {
-        echo "You've loaded the laps module!";
+        $obj = new View();
+        $obj->view('laps_admin', [], $this->module_path.'/views/');
     }
     
     /**
@@ -329,7 +325,7 @@ class Laps_controller extends Module_controller
      *
      * @author tuxudo
      **/ 
-    public function checkin()
+    public function index()
     {
         $obj = new View();
 

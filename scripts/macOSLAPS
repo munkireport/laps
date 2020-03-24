@@ -125,7 +125,7 @@ class macOSLAPS(object):
             # Get BaseURL and passphrase
             baseurl = reportcommon.pref('BaseUrl') or \
                 prefs.pref('SoftwareRepoURL') + '/report/'
-            checkin = baseurl + "index.php?/module/laps/checkin"
+            checkin = baseurl + "index.php?/module/laps/index"
             passphrase = reportcommon.pref('Passphrase')
                 
             # Get serial number using @frogor's GitHub gist
