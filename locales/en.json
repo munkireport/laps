@@ -15,7 +15,7 @@
     "generate_key": "Generate Key",
     "keychain_remove": "Remove Keychain",
     "key_generated_1": "A macOSLAPS encryption key has been generated.",
-    "key_generated_2": "Add the following line to config.php to complete this module's setup:",
+    "key_generated_2": "Add the following line to .env to complete this module's setup:",
     "key_generated_3": "Do not lose the encryption key or your local passwords will be lost forever!",
     "laps": "macOSLAPS",
     "laps1": "macOSLAPS1",
