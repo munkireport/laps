@@ -212,7 +212,7 @@ $(document).on('appReady', function(e, lang) {
         
         // Get the generated encryption key
         $.getJSON( appUrl + '/module/laps/generate_laps_key', function( data ) {
-            $('#serial_enter').html(i18n.t('laps.key_generated_1')+"<br/>"+i18n.t('laps.key_generated_3')+'<br>'+i18n.t('laps.key_generated_2')+"<br/><br/>$conf['laps_encryption_key'] = '"+data.key);
+            $('#serial_enter').html(i18n.t('laps.key_generated_1')+"<br/>"+i18n.t('laps.key_generated_3')+'<br>'+i18n.t('laps.key_generated_2')+"<br/><br/>LAPS_ENCRYPTION_KEY='"+data.key);
         });
     });
     
