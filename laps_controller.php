@@ -14,7 +14,7 @@ class Laps_controller extends Module_controller
     function __construct()
     {
         $this->module_path = dirname(__FILE__);
-
+                
         // Add local config
         configAppendFile(__DIR__ . '/config.php');
     }
@@ -285,9 +285,9 @@ class Laps_controller extends Module_controller
         $username = $_SESSION['user']??"Unknown";
         $remote_ip = getRemoteAddress();
         $user_agent = $_SERVER['HTTP_USER_AGENT']??"API";
-        
+
         // Check if previous audits exist
-        if (count($laps_audit) == 0){
+        if (count($laps_audit) == 0 || $laps_audit == null){
             // If it doesn't, make new audit
             $audit_out=array("timestamp"=>$timestamp,"username"=>$username,"remote_ip"=>$remote_ip,"user_agent"=>$user_agent,"action"=>$action);
         } else {
@@ -296,12 +296,12 @@ class Laps_controller extends Module_controller
             $audit_new = array("timestamp"=>$timestamp,"username"=>$username,"remote_ip"=>$remote_ip,"user_agent"=>$user_agent,"action"=>$action);
             $audit_out[count($audit_out)] = $audit_new;
         }
-        
+
         // Make new model and process data
         $queryobj_out = new Laps_model($serial_number);
         $queryobj_out->process_audit($audit_out);
     }
-    
+
     /**
      * Generates an encryption key
      *
@@ -374,7 +374,8 @@ class Laps_controller extends Module_controller
         // Return data to client
         $queryobj = new Laps_model();
         $laps_return = $queryobj->query($sql);
-	// Check if data exists for client in database
+        
+	   // Check if data exists for client in database
         if (!isset($laps_return[0])){
             print_r('{"days_till_expiration":"-1","dateexpires": "1", "dateset": "1"}');
         } else {
