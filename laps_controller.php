@@ -11,9 +11,12 @@ use Defuse\Crypto\Key;
 
 class Laps_controller extends Module_controller
 {
-	function __construct()
-	{
-		$this->module_path = dirname(__FILE__);
+    function __construct()
+    {
+        $this->module_path = dirname(__FILE__);
+
+        // Add local config
+        configAppendFile(__DIR__ . '/config.php');
     }
     
     public function admin()
