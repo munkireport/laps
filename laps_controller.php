@@ -292,7 +292,7 @@ class Laps_controller extends Module_controller
             $audit_out=array("timestamp"=>$timestamp,"username"=>$username,"remote_ip"=>$remote_ip,"user_agent"=>$user_agent,"action"=>$action);
         } else {
             // Else, add new audit to existing
-            $audit_out = json_decode($laps_audit[0]->audit);
+            $audit_out = json_decode($laps_audit[0]->audit, $assoc = true);
             $audit_new = array("timestamp"=>$timestamp,"username"=>$username,"remote_ip"=>$remote_ip,"user_agent"=>$user_agent,"action"=>$action);
             $audit_out[count($audit_out)] = $audit_new;
         }
