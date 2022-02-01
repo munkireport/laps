@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/local/munkireport/munkireport-python2
 '''LAPS for macOS devices'''
 # pylint: disable=C0103, E0611, W0703
 # ############################################################
@@ -194,13 +194,23 @@ class macOSLAPS(object):
                 # Connect to Local Node
                 local_node, error = ODNode.nodeWithSession_name_error_(
                     ODSession.defaultSession(), '/Local/Default', None)
+                if error:
+                    log_error('Error getting local node: %s', error)
                 # Pull Local Administrator Record
                 local_admin_change, error = local_node.\
                     recordWithRecordType_name_attributes_error_(
                         kODRecordTypeUsers, local_admin, None, None)
+                if error:
+                    log_error('Error getting local admin record: %s', error)
                 # Change the password for the account
-                local_admin_change.changePassword_toPassword_error_(
+                result, error = local_admin_change.changePassword_toPassword_error_(
                     None, password, None)
+                if error:
+                    log_error('Error changing local admin password: %s', error)
+                if result:
+                    log_info(' Password change was successful')
+                else:
+                    raise RuntimeError('Password change failed')
                 # Set expiration time in plist
                 plistout['dateexpires'] = epoch_expiration_time
                 log_info(' Password change has been completed. '
