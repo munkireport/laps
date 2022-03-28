@@ -1,4 +1,4 @@
-#!/usr/local/munkireport/munkireport-python2
+#!/usr/local/munki/munki-python
 '''LAPS for macOS devices'''
 # pylint: disable=C0103, E0611, W0703
 # ############################################################
@@ -73,7 +73,7 @@ class macOSLAPS(object):
                                                      preference_file)
         if preference_value is None:
             preference_value = self.defaultpreferences.get(preference_key)
-        if isinstance(preference_value, unicode):
+        if isinstance(preference_value, str):
             preference_value = normalize(
                 'NFKD', preference_value).encode('ascii', 'ignore')
         return preference_value
@@ -168,7 +168,12 @@ class macOSLAPS(object):
             # Something in the process of getting the server response errored, using cached response
             log_info(' Problem getting data from MunkiReport server or with decoding response, using local cached preferences.')
             if os.path.isfile('/var/root/.mrlaps'):
-                result = plistlib.readPlist('/var/root/.mrlaps')
+                try:
+                    result = plistlib.readPlist('/var/root/.mrlaps')
+                except:
+                    with open('/var/root/.mrlaps', 'rb') as fp:
+                        result = plistlib.load('/var/root/.mrlaps')
+
             else:
                 # Cached response doesn't exist, likely first run, using defaults
                 result = {"dateexpires": "1", "dateset": "1"}
@@ -258,7 +263,11 @@ class macOSLAPS(object):
                 plistout['remote_management'] = remote_management
 
                 # Write out plist to save password and other info
-                plistlib.writePlist(plistout, '/var/root/.mrlaps')
+                try:
+                    plistlib.writePlist(plistout, '/var/root/.mrlaps')
+                except:
+                    with open('/var/root/.mrlaps', 'wb') as fp:
+                        plistlib.dump(plistout, fp, fmt=plistlib.FMT_XML)
                 log_info(' Writing out cache file for postflight to pick up.')
 
             except Exception as error:
@@ -271,8 +280,12 @@ class macOSLAPS(object):
             
             # If plist exists
             if os.path.isfile('/var/root/.mrlaps'):
-                stored_plist = plistlib.readPlist('/var/root/.mrlaps')
-                
+                try:
+                    stored_plist = plistlib.readPlist('/var/root/.mrlaps')
+                except:
+                    with open('/var/root/.mrlaps', 'rb') as fp:
+                        stored_plist = plistlib.load('/var/root/.mrlaps')
+
                 # If remote management is set, update cache file with preferences
                 if remote_management:   
                     # Set days between password expiration in plist
@@ -287,7 +300,11 @@ class macOSLAPS(object):
                     stored_plist['pass_length'] = pass_length
                     
                     # Write out cache file
-                    plistlib.writePlist(stored_plist, '/var/root/.mrlaps')
+                    try:
+                        plistlib.writePlist(stored_plist, '/var/root/.mrlaps')
+                    except:
+                        with open('/var/root/.mrlaps', 'wb') as fp:
+                            plistlib.dump(stored_plist, fp, fmt=plistlib.FMT_XML)
                     log_info(' Saved remote management preferences to cache file.')
 
                 # Get date set key and compare to server value
@@ -296,23 +313,21 @@ class macOSLAPS(object):
                     # If the same, remove the password in the plist
                     if 'password' in stored_plist:
                         del stored_plist['password']
-                        plistlib.writePlist(stored_plist, '/var/root/.mrlaps')
+                        try:
+                            plistlib.writePlist(stored_plist, '/var/root/.mrlaps')
+                        except:
+                            with open('/var/root/.mrlaps', 'wb') as fp:
+                                plistlib.dump(stored_plist, fp, fmt=plistlib.FMT_XML)
                         log_info(' Clearing cached password, because it is in MunkiReport.')
             exit(0)
             
-# Skip manual check
-if len(sys.argv) > 1:
-    if sys.argv[1] == 'manualcheck':
-        print 'Manual check: skipping'
-        exit(0)
-
 # Exit if Joshua Miller's macOSLAPS is installed
 if os.path.isfile('/usr/local/laps/macOSLAPS'):
-    print 'Skipping macOSLAPS run, Joshua Miller\'s macOSLAPS script appears to be installed and configured'
+    print('Skipping macOSLAPS run, Joshua Miller\'s macOSLAPS script appears to be installed and configured')
     log_info(' Skipping macOSLAPS run, Joshua Miller\'s macOSLAPS script appears to be installed and configured.')
     exit(0)
 if os.path.isfile('/Library/LaunchDaemons/edu.psu.macoslaps-check.plist'):
-    print 'Skipping macOSLAPS run, Joshua Miller\'s macOSLAPS script appears to be installed and configured'
+    print('Skipping macOSLAPS run, Joshua Miller\'s macOSLAPS script appears to be installed and configured')
     log_info(' Skipping macOSLAPS run, Joshua Miller\'s macOSLAPS script appears to be installed and configured.')
     exit(0)
             
