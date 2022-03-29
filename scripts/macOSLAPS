@@ -1,4 +1,4 @@
-#!/usr/local/munki/munki-python
+#!/usr/local/munkireport/munkireport-python3
 '''LAPS for macOS devices'''
 # pylint: disable=C0103, E0611, W0703
 # ############################################################
