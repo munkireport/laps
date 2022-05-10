@@ -287,6 +287,7 @@ function saveAdmin(serialNumber, resetPassword)
     var url = appUrl + '/module/laps/save_admin_info/'+serialNumber;
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-type", "application/json");
+    xhr.setRequestHeader("x-csrf-token", document.querySelector('meta[name="csrf-token"]').content);    
     xhr.send(save_info); 
 }
     
