@@ -45,7 +45,7 @@ class Laps_controller extends Module_controller
         
             // Write to audit log
             $queryobj_controller = new Laps_controller();
-            $queryobj_controller->save_audit_internal($serial_number, "show_password_unauthorized");
+            $queryobj_controller->save_audit_internal("show_password_unauthorized", $serial_number);
             
             $obj->view('json', array('msg' => 'Not authorized to view password'));
             return;
@@ -59,7 +59,7 @@ class Laps_controller extends Module_controller
         
         // Write to audit log
         $queryobj_controller = new Laps_controller();
-        $queryobj_controller->save_audit_internal($serial_number, "show_password");        
+        $queryobj_controller->save_audit_internal("show_password", $serial_number);        
 
         $queryobj = new Laps_model();
         $sql = "SELECT password
@@ -201,7 +201,7 @@ class Laps_controller extends Module_controller
                        
         // Write to audit log
         $queryobj_controller = new Laps_controller();
-        $queryobj_controller->save_audit_internal($serial_number, "admin_view");
+        $queryobj_controller->save_audit_internal("admin_view", $serial_number);
         
         $sql = "SELECT useraccount, dateset, dateexpires, days_till_expiration, pass_length,
                     alpha_numeric_only, script_enabled, keychain_remove, remote_management
@@ -250,11 +250,11 @@ class Laps_controller extends Module_controller
         if (property_exists($admin_in, 'dateexpires')) {
             // Write to audit log
             $queryobj_controller = new Laps_controller();
-            $queryobj_controller->save_audit_internal($serial_number, "password_reset");
+            $queryobj_controller->save_audit_internal("password_reset", $serial_number);
         } else {
             // Write to audit log
             $queryobj_controller = new Laps_controller();
-            $queryobj_controller->save_audit_internal($serial_number, "remote_management");
+            $queryobj_controller->save_audit_internal("remote_management", $serial_number);
         }
         
         // Make new model and process data
@@ -270,7 +270,7 @@ class Laps_controller extends Module_controller
      *
      * @author tuxudo
      **/
-    private function save_audit_internal($serial_number = '', $action)
+    private function save_audit_internal($action, $serial_number = '')
     {
         $queryobj_get = new Laps_model();
         $sql = "SELECT audit
