@@ -10,7 +10,7 @@ class Laps_model extends \Model
     public function __construct($serial = '')
     {
         parent::__construct('id', 'laps'); //primary key, tablename
-        $this->rs['id'] = 0;
+        $this->rs['id'] = "";
         $this->rs['serial_number'] = $serial;
         $this->rs['useraccount'] = '';
         $this->rs['password'] = '';
