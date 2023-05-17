@@ -64,8 +64,8 @@ input:checked + .slider:before {
 } 
 </style>
 
-<div class="container">
-    <div class="row">
+<div class="container-fluid">
+    <div class="row pt-4">
         <div class="col-lg-3">
             <span id="laps_admin_title"></span>
             
