@@ -92,7 +92,7 @@ class macOSLAPS(object):
             'RemovePassChars')
         # Remove Characters if specified
         if remove_pass_characters:
-            characters = characters.translate( { ord(i): None for i in remove_pass_characters} )
+            characters = characters.translate( { ord(i): None for i in remove_pass_characters.decode('utf-8')} )
         password = []
         for i in range(length):
             password.insert(i, choice(characters))
