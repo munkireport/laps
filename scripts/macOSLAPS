@@ -88,8 +88,13 @@ class macOSLAPS(object):
             characters = ascii_letters + digits
         else:
             characters = ascii_letters + punctuation + digits
-        remove_pass_characters = macOSLAPS().get_config_settings(
-            'RemovePassChars')
+
+        remove_pass_characters = macOSLAPS().get_config_settings('RemovePassChars')
+
+        # Decode if preference is bytes
+        if isinstance(remove_pass_characters, bytes):
+            remove_pass_characters = remove_pass_characters.decode("utf-8", errors="ignore")
+
         # Remove Characters if specified
         if remove_pass_characters:
             characters = characters.translate( { ord(i): None for i in remove_pass_characters} )
@@ -112,6 +117,14 @@ class macOSLAPS(object):
         script_enabled = LAPS.get_config_settings('Enabled')
         remote_management = LAPS.get_config_settings('RemoteManagementEnabled')
         password = LAPS.make_random_password(pass_length)
+
+        # Decode if bytes
+        if isinstance(local_admin, bytes):
+            local_admin = local_admin.decode("utf-8", errors="ignore")
+        if isinstance(exp_days, bytes):
+            exp_days = exp_days.decode("utf-8", errors="ignore")
+        if isinstance(pass_length, bytes):
+            pass_length = pass_length.decode("utf-8", errors="ignore")
 
         # Get password expiration in future epoch time
         utc_time = datetime.utcfromtimestamp(int(time.time()))
