@@ -92,7 +92,7 @@ class macOSLAPS(object):
             'RemovePassChars')
         # Remove Characters if specified
         if remove_pass_characters:
-            characters = characters.translate(None, remove_pass_characters)
+            characters = characters.translate( { ord(i): None for i in remove_pass_characters} )
         password = []
         for i in range(length):
             password.insert(i, choice(characters))
@@ -168,11 +168,8 @@ class macOSLAPS(object):
             # Something in the process of getting the server response errored, using cached response
             log_info(' Problem getting data from MunkiReport server or with decoding response, using local cached preferences.')
             if os.path.isfile('/var/root/.mrlaps'):
-                try:
-                    result = plistlib.readPlist('/var/root/.mrlaps')
-                except:
-                    with open('/var/root/.mrlaps', 'rb') as fp:
-                        result = plistlib.load('/var/root/.mrlaps')
+                with open('/var/root/.mrlaps', 'rb') as fp:
+                    result = plistlib.load(fp)
 
             else:
                 # Cached response doesn't exist, likely first run, using defaults
@@ -280,11 +277,8 @@ class macOSLAPS(object):
             
             # If plist exists
             if os.path.isfile('/var/root/.mrlaps'):
-                try:
-                    stored_plist = plistlib.readPlist('/var/root/.mrlaps')
-                except:
-                    with open('/var/root/.mrlaps', 'rb') as fp:
-                        stored_plist = plistlib.load('/var/root/.mrlaps')
+                with open('/var/root/.mrlaps', 'rb') as fp:
+                    stored_plist = plistlib.load(fp)
 
                 # If remote management is set, update cache file with preferences
                 if remote_management:   
