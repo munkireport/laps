@@ -306,7 +306,7 @@ class Laps_controller extends Module_controller
             // Else, add new audit to existing
             $audit_out = json_decode($laps_audit[0]->audit, $assoc = true);
             $audit_new = array("timestamp"=>$timestamp,"username"=>$username,"remote_ip"=>$remote_ip,"user_agent"=>$user_agent,"action"=>$action);
-            $audit_out[count($audit_out)] = $audit_new;
+            $audit_out[is_null($audit_out) ? 0 : count($audit_out)] = $audit_new;
         }
 
         // Make new model and process data
