@@ -237,7 +237,7 @@ class macOSLAPS(object):
                     cmd = ['/usr/bin/dscl', '.', '-read', '/Users/'+local_admin, 'NFSHomeDirectory']
                     proc = subprocess.Popen(cmd, shell=False, bufsize=-1, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                     (output, unused_error) = proc.communicate()
-                    local_admin_path = output.strip('NFSHomeDirectory: ').rstrip("\n\r")+'/Library/Keychains'
+                    local_admin_path = output.decode("utf-8", errors="ignore").strip('NFSHomeDirectory: ').strip("\n\r")+'/Library/Keychains'
                     
                     # Delete if exists
                     if path.exists(local_admin_path):
