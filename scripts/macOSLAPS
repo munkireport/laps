@@ -39,7 +39,6 @@ from unicodedata import normalize
 import objc
 from Foundation import NSBundle
 
-sys.path.insert(0, '/usr/local/munki')
 sys.path.insert(0, '/usr/local/munkireport')
 from munkilib import reportcommon
 

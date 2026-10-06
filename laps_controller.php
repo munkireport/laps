@@ -33,7 +33,7 @@ class Laps_controller extends Module_controller
     public function get_password($serial_number = '')
     {
         // Remove non-serial number characters
-        $serial_number = preg_replace("/[^A-Za-z0-9_\-]]/", '', $serial_number);
+        $serial_number = preg_replace("/[^A-Za-z0-9_\-]/", '', $serial_number);
 
         $obj = new View();
         
@@ -97,7 +97,7 @@ class Laps_controller extends Module_controller
     public function get_audit($serial_number = '')
     {
         // Remove non-serial number characters
-        $serial_number = preg_replace("/[^A-Za-z0-9_\-]]/", '', $serial_number);
+        $serial_number = preg_replace("/[^A-Za-z0-9_\-]/", '', $serial_number);
 
         $obj = new View();
 
@@ -159,7 +159,7 @@ class Laps_controller extends Module_controller
     public function get_data($serial_number = '')
     {
         // Remove non-serial number characters
-        $serial_number = preg_replace("/[^A-Za-z0-9_\-]]/", '', $serial_number);
+        $serial_number = preg_replace("/[^A-Za-z0-9_\-]/", '', $serial_number);
 
         $obj = new View();
 
@@ -202,7 +202,7 @@ class Laps_controller extends Module_controller
     public function get_data_admin($serial_number = '')
     {
         // Remove non-serial number characters
-        $serial_number = preg_replace("/[^A-Za-z0-9_\-]]/", '', $serial_number);
+        $serial_number = preg_replace("/[^A-Za-z0-9_\-]/", '', $serial_number);
 
         $obj = new View();
 
@@ -381,7 +381,9 @@ class Laps_controller extends Module_controller
         $serial_number = $_POST['serial'];
         $sql = "SELECT dateexpires, dateset, script_enabled, days_till_expiration, alpha_numeric_only, keychain_remove, pass_length
                     FROM laps
-                    WHERE serial_number = '$serial_number'";
+                    LEFT JOIN reportdata USING (serial_number)
+                    ".get_machine_group_filter()."
+                    AND serial_number = '$serial_number'";
         
         // Return data to client
         $queryobj = new Laps_model();
